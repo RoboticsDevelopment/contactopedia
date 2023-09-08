@@ -37,6 +37,19 @@ class ContactIndex extends React.Component {
     };
   }
 
+  handleAddContact = (newContact) => {
+    const newFinalContact = {
+      ...newContact,
+      id: this.state.contactList[this.state.contactList.length - 1].id + 1,
+      isFavorite: false,
+    };
+    this.setState((prevState) => {
+      return {
+        contactList: prevState.contactList.concat([newFinalContact]),
+      };
+    });
+  };
+
   render() {
     return (
       <div>
@@ -50,26 +63,26 @@ class ContactIndex extends React.Component {
               <RemoveAllContacts />
             </div>
             <div className="row py-2">
-                <div className="col-10 offset-1 row">
-              <AddContact />
+              <div className="col-10 offset-1 row">
+                <AddContact handleAddContact={this.handleAddContact} />
               </div>
             </div>
             <div className="row py-2">
-            <div className="col-10 offset-1 row">
-              <FavoriteContacts
-                contacts={this.state.contactList.filter(
-                  (u) => u.isFavorite == true
-                )}
-              />
+              <div className="col-10 offset-1 row">
+                <FavoriteContacts
+                  contacts={this.state.contactList.filter(
+                    (u) => u.isFavorite == true
+                  )}
+                />
               </div>
             </div>
             <div className="row py-2">
-            <div className="col-10 offset-1 row">
-              <GeneralContacts
-                contacts={this.state.contactList.filter(
-                  (u) => u.isFavorite == false
-                )}
-              />
+              <div className="col-10 offset-1 row">
+                <GeneralContacts
+                  contacts={this.state.contactList.filter(
+                    (u) => u.isFavorite == false
+                  )}
+                />
               </div>
             </div>
           </div>
